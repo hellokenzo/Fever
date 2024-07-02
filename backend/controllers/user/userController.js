@@ -94,7 +94,7 @@ exports.login = async (req, res) => {
   exports.getProfile = async (req, res) => {
     try {
       const user = await User.findByPk(req.user.userId, {
-        attributes: ['username', 'email']
+        attributes: ['username', 'email', 'coins']
       });
       if (!user) {
         return res.status(404).json({ error: 'Utilisateur non trouvé' });

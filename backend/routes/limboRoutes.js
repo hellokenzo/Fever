@@ -1,5 +1,5 @@
 const express = require('express');
-const limboController = require('../controllers/limboController');
+const limboController = require('../controllers/games/limboController');
 
 const router = express.Router();
 

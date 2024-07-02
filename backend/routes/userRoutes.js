@@ -6,12 +6,29 @@ const router = express.Router();
 
 router.post('/register', userController.register);
 router.post('/login', userController.login);
-router.post('/logout', authMiddleware, userController.logout);
-router.get('/profile', authMiddleware, userController.getProfile);
-router.put('/change-email', authMiddleware, userController.changeEmail);
-router.get('/balance', authMiddleware, userController.getBalance);
-router.post('/balance/set', authMiddleware, userController.setBalance);
-router.delete('/delete', authMiddleware, userController.deleteProfile);
 
+router.get('/logout', authMiddleware, (req, res) => {
+  userController.logout(req, res);
+});
+
+router.get('/profile', authMiddleware, (req, res) => {
+  userController.getProfile(req, res);
+});
+
+router.put('/change-email', authMiddleware, (req, res) => {
+  userController.changeEmail(req, res);
+});
+
+router.get('/balance', authMiddleware, (req, res) => {
+  userController.getBalance(req, res);
+});
+
+router.post('/balance/set', authMiddleware, (req, res) => {
+  userController.setBalance(req, res);
+});
+
+router.delete('/delete', authMiddleware, (req, res) => {
+  userController.deleteProfile(req, res);
+});
 
 module.exports = router;
