@@ -2,6 +2,10 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 const sequelize = require('sequelize');
 
+/*
+* POST /users/register
+*/
+
 exports.register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
@@ -36,6 +40,10 @@ exports.register = async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la création du compte' });
   }
 };
+
+/*
+* POST /users/login
+*/
 
 exports.login = async (req, res) => {
     try {
@@ -79,6 +87,10 @@ exports.login = async (req, res) => {
     }
   };
   
+ /*
+ * GET /users/profile
+ */
+
   exports.getProfile = async (req, res) => {
     try {
       const user = await User.findByPk(req.user.userId, {
@@ -94,6 +106,28 @@ exports.login = async (req, res) => {
     }
   };
   
+  /*
+  * DELETE /users/profile
+  */
+
+  exports.deleteProfile = async (req, res) => {
+    try {
+      const user = await User.findByPk(req.user.userId);
+      if (!user) {
+        return res.status(404).json({ error: 'Utilisateur non trouvé' });
+      }
+      await user.destroy();
+      res.json({ message: 'Compte supprimé avec succès' });
+    } catch (error) {
+      console.error('Erreur lors de la suppression du compte:', error);
+      res.status(500).json({ error: 'Erreur serveur' });
+    }
+  };
+
+/*
+* PUT /users/profile/email
+*/
+
   exports.changeEmail = async (req, res) => {
     try {
       const { newEmail } = req.body;
@@ -110,6 +144,10 @@ exports.login = async (req, res) => {
     }
   };
 
+/*
+* GET /users/balance
+*/
+
   exports.getBalance = async (req, res) => {
     try {
       const user = await User.findByPk(req.user.userId, {
@@ -125,6 +163,10 @@ exports.login = async (req, res) => {
     }
   };
 
+  /*
+  * PUT /users/balance/set
+  */
+
   exports.setBalance = async (req, res) => {
     try {
       const { amount } = req.body;
@@ -137,20 +179,6 @@ exports.login = async (req, res) => {
       res.json({ message: 'Solde mis à jour avec succès' });
     } catch (error) {
       console.error('Erreur lors de la mise à jour du solde:', error);
-      res.status(500).json({ error: 'Erreur serveur' });
-    }
-  };
-
-  exports.deleteProfile = async (req, res) => {
-    try {
-      const user = await User.findByPk(req.user.userId);
-      if (!user) {
-        return res.status(404).json({ error: 'Utilisateur non trouvé' });
-      }
-      await user.destroy();
-      res.json({ message: 'Compte supprimé avec succès' });
-    } catch (error) {
-      console.error('Erreur lors de la suppression du compte:', error);
       res.status(500).json({ error: 'Erreur serveur' });
     }
   };

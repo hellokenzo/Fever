@@ -1,6 +1,10 @@
 const { generateRandomNumber } = require('../../utils/randomGenerator');
 const gameHistory = require('../../models/gameHistory');
 
+/*
+* POST /games/limbo/play
+*/
+
 exports.play = async (req, res) => {
   const { bet, targetNumber } = req.body;
 
@@ -35,6 +39,10 @@ exports.play = async (req, res) => {
 
   res.json(result);
 };
+
+/*
+* GET /games/limbo/history
+*/
 
 exports.getHistory = async (req, res) => {
   const history = await gameHistory.getHistory();
