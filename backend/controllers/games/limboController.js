@@ -1,5 +1,7 @@
 const { generateRandomNumber } = require('../../utils/randomGenerator');
 const gameHistory = require('../../models/gameHistory');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 /*
 * POST /games/limbo/play
@@ -12,7 +14,11 @@ exports.play = async (req, res) => {
     return res.status(400).json({ error: 'Mise et nombre cible requis' });
   }
 
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, config.JWT_SECRET);
+
   const randomNumber = generateRandomNumber();
+  const userId = decodedToken.userId;
 
   let result;
   if (randomNumber < targetNumber) {
@@ -32,6 +38,7 @@ exports.play = async (req, res) => {
 
   // Ajouter le résultat à l'historique
   await gameHistory.addGame({
+    userId,
     bet,
     targetNumber,
     ...result
@@ -39,6 +46,8 @@ exports.play = async (req, res) => {
 
   res.json(result);
 };
+
+
 
 /*
 * GET /games/limbo/history

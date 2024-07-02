@@ -1,7 +1,9 @@
 const { DataTypes } = require('sequelize');
+const jwt = require('jsonwebtoken');
+const config = require('../config'); // Assuming the config file is in the same directory as gameHistory.js
 const sequelize = require('../database');
 
-const GameHistory = sequelize.define('GameHistory', {
+const GameHistory = sequelize.define('Game', {
   bet: {
     type: DataTypes.FLOAT,
     allowNull: false
@@ -21,6 +23,10 @@ const GameHistory = sequelize.define('GameHistory', {
   winAmount: {
     type: DataTypes.FLOAT,
     allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 });
 
@@ -34,7 +40,6 @@ exports.getHistory = async () => {
     limit: 100
   });
 };
-
 exports.initializeDatabase = async () => {
   await sequelize.sync();
 };

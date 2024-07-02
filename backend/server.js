@@ -4,7 +4,7 @@ const limboRoutes = require('./routes/limboRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { initializeDatabase } = require('./models/gameHistory');
 const User = require('./models/user');
-const sequelize = require('./database'); // Ajoutez cette ligne
+const sequelize = require('./database');
 // const cors = require('cors');
 
 const app = express();

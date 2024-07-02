@@ -107,6 +107,25 @@ exports.login = async (req, res) => {
   };
   
   /*
+  * GET /users/profile/id
+  */
+ 
+  exports.getUserId = async (req, res) => {
+    try {
+      const user = await User.findByPk(req.user.userId, {
+        attributes: ['id'] // Seulement récupérer l'ID de l'utilisateur
+      });
+      if (!user) {
+        return res.status(404).json({ error: 'Utilisateur non trouvé' });
+      }
+      res.json(user); // Retourne l'ID de l'utilisateur
+    } catch (error) {
+      console.error('Erreur lors de la récupération de l\'ID de l\'utilisateur:', error);
+      res.status(500).json({ error: 'Erreur serveur' });
+    }
+  };
+
+  /*
   * DELETE /users/profile
   */
 
