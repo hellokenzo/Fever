@@ -1,9 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Register from './components/register';
-import Login from './components/login';
-import Dashboard from './components/dashboard';
-import Limbo from './components/limbo';
+//
+// PAGES
+//
+
+import Register from './pages/register';
+import Login from './pages/login';
+import Dashboard from './pages/dashboard';
+import Limbo from './pages/limbo';
+
 
 function App() {
   return (
