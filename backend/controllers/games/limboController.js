@@ -53,3 +53,6 @@ exports.play = (req, res) => {
     });
   });
 };
+
+// TODO: Ajouter un système pour éviter toute tricherie, par exemple en vérifiant que le multiplicateur cible est bien un nombre positif et que la mise est supérieure à 0 et inférieure à un certain montant.
+// TODO: Ajouter un système pour éviter les attaques de force brute, par exemple en limitant le nombre de parties par minute. 
